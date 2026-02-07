@@ -14,9 +14,12 @@
 
 
 <script setup lang="ts">
-import axios from 'axios';
+import { useModalState } from '@/stores/useModalState';
+import { useUserInfoStore } from '@/stores/userInfo';
+import axiosInstance from '@/util/axiosInstance';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 
     const userId = ref('');
     const password = ref('');
@@ -25,16 +28,23 @@ import { useRouter } from 'vue-router';
     console.log(password.value)
 
     const router = useRouter();
+    const  { setLogin, isLogined } = useUserInfoStore();
+    const  { openModal } = useModalState();
+    const currentRoute = useRoute();
+    const fromname = currentRoute.query.fromname;
+    
 
     const handleLogin = async (e : Event ) => {
 
         try{
-            const {data, status} = await axios.post('http:/localhost:8080/users/login', 
+            const {data, status} = await axiosInstance.post('/users/login', 
                                                     { userId : userId.value, 
                                                       password : password.value})
                 if(status === 200){
                     console.log(data);
-                    console.log('로그인이 완료되었습니다.');
+                    setLogin(data.nickname);
+                    openModal('로그인이 정상적으로 되었습니다.');
+                    sessionStorage.setItem('accessToken', data.accessToken);
                     router.push('/stadiums');
                 }
         }

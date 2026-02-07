@@ -16,21 +16,23 @@
             <th>이미지</th>
           </tr>
         </thead>
-        <tr v-for="item in stadiums" :key="item.id">
-          <td>{{ item.team }}</td>
-          <td>{{ item.stadiumName }}</td>
-          <td>{{ item.address }}</td>
-          <td>{{ item.seat }}</td>
-          <td>{{ item.area }}</td>
-          <td v-for="feature in item.features" 
-              :key="feature" 
-               style="display: flex; flex-direction: column;">
-              <p>{{ feature }}</p>
-          </td>
-          <td>{{ item.homepage }}</td>
-          <td>{{ item.coordinates.join(', ') }}</td>
-          <td><img :src="'http://localhost:8080' + item.imagePath" alt="경기장 이미지" /></td>
-        </tr>
+        <tbody>
+          <tr v-for="item in stadiums" :key="item.id">
+            <td>{{ item.team }}</td>
+            <td>{{ item.stadiumName }}</td>
+            <td>{{ item.address }}</td>
+            <td>{{ item.seat }}</td>
+            <td>{{ item.area }}</td>
+            <td v-for="feature in item.features" 
+                :key="feature" 
+                style="display: flex; flex-direction: column;">
+                <p>{{ feature }}</p>
+            </td>
+            <td>{{ item.homepage }}</td>
+            <td>{{ item.coordinates.join(', ') }}</td>
+            <td><img :src="`${baseUrl}${item.imagePath}`" alt="경기장 이미지" /></td>
+          </tr>
+      </tbody>
       </table>
     <div v-if="stadiums.length === 0">데이터가 없습니다.</div>
   </div>
@@ -38,17 +40,31 @@
 
 <script setup lang="ts">
 import axiosInstance from '@/util/axiosInstance';
-import axios from 'axios';
 import { ref, onMounted, reactive } from 'vue';
 
+    interface IStadium{
+      id : string;
+      team : string;
+      stadiumName : string;
+      address : string;
+      seat : number;
+      area : number;
+      features : string[];
+      imagePath : string;
+      homepage : string;
+      coordinates : number[];
+      float : string;
+  }
 
-    const stadiums = reactive<any>([]);
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
+    const stadiums : IStadium[] = reactive([]);
     const error = ref<null | string>(null);
 
     const fetchData = async () => {
 
       try {
-        const response = await axios.get('http://localhost:8080/stadium');
+        const response = await axiosInstance.get('/stadium');
         stadiums.push(...response.data);
         console.log(response.data);
       } catch (e) {

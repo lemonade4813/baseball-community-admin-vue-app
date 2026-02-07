@@ -15,6 +15,7 @@ import { computed } from 'vue';
       <RouterLink to="/foods">맛집 정보 수정</RouterLink>
       <RouterLink to="/stadiums">경기장 정보 수정</RouterLink>
       <RouterLink to="/members">회원 관리</RouterLink>
+      <RouterLink to="/schedules-upload">경기일정 관리</RouterLink>
     </nav>
     <RouterView></RouterView>
   </div>
