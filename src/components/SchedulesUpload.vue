@@ -6,7 +6,6 @@
         accept=".xlsx, .xls" 
         @change="handleFileChange" 
       />
-      
       <button @click="handleUpload" style="margin-left: 10px;">
         서버로 전송
       </button>

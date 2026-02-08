@@ -1,8 +1,9 @@
 <template>
-  <h2>경기장 정보 수정</h2>
-  <div>
-    <div v-if="error">{{ error }}</div>
-      <table v-else>
+  <div class="container">
+    <h2>경기장 정보 수정</h2>
+    <div v-if="error" class="error-msg">{{ error }}</div>
+    <div v-else class="table-wrapper">
+      <table>
         <thead>
           <tr>
             <th>팀명</th>
@@ -21,20 +22,27 @@
             <td>{{ item.team }}</td>
             <td>{{ item.stadiumName }}</td>
             <td>{{ item.address }}</td>
-            <td>{{ item.seat }}</td>
-            <td>{{ item.area }}</td>
-            <td v-for="feature in item.features" 
-                :key="feature" 
-                style="display: flex; flex-direction: column;">
-                <p>{{ feature }}</p>
+            <td>{{ item?.seat?.toLocaleString() }}명</td>
+            <td>{{ item?.area?.toLocaleString() }}㎡</td>
+            <td class="features-cell">
+              <div v-if="item.features && item.features.length > 0">
+                <span v-for="(feature, index) in item.features" :key="index" class="feature-tag">
+                  {{ feature || "" }}
+                </span>
+              </div>
             </td>
-            <td>{{ item.homepage }}</td>
+            <td>
+              <a :href="item.homepage" target="_blank" v-if="item.homepage">방문하기</a>
+            </td>
             <td>{{ item.coordinates.join(', ') }}</td>
-            <td><img :src="`${baseUrl}${item.imagePath}`" alt="경기장 이미지" /></td>
+            <td class="img-cell">
+              <img :src="`${baseUrl}${item.imagePath}`" alt="경기장 이미지" />
+            </td>
           </tr>
-      </tbody>
+        </tbody>
       </table>
-    <div v-if="stadiums.length === 0">데이터가 없습니다.</div>
+    </div>
+    <div v-if="stadiums.length === 0" class="no-data">데이터가 없습니다.</div>
   </div>
 </template>
 
@@ -81,14 +89,61 @@ import { ref, onMounted, reactive } from 'vue';
 </script>
 
 <style scoped>
+.container {
+  padding: 20px;
+}
 
-p {
-  margin: 5px 0;
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+}
+
+th {
+  background-color: #4a5568; 
+  color: #ffffff;
+  padding: 12px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #333c4d;
+}
+
+
+td {
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #e2e8f0;
+  color: #2d3748;
+}
+
+.feature-item {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #4a5568;
+}
+
+
+tbody tr:hover {
+  background-color: #f8fafc;
 }
 
 img {
-  max-width: 100%; 
+  max-width: 100px;
   height: auto;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
 }
 
+p {
+  margin: 0;
+}
 </style>
