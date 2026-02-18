@@ -3,8 +3,8 @@ import Stadiums from '@/components/Stadiums.vue'
 import Foods from '@/components/Foods.vue'
 import Members from '@/components/Members.vue'
 import Login from '@/components/Login.vue'
-import { useUserInfoStore } from '@/stores/userInfo'
 import SchedulesUpload from '@/components/SchedulesUpload.vue'
+import SignUp from '@/components/Signup.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -32,6 +32,11 @@ const router = createRouter({
       path: '/schedules-upload',
       name: 'schedules-upload',
       component: SchedulesUpload,
+    },
+    {
+      path: '/sign-up',
+      name: 'signUp',
+      component: SignUp,
     },
   ],
 })
