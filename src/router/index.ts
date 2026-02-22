@@ -5,9 +5,15 @@ import Members from '@/components/Members.vue'
 import Login from '@/components/Login.vue'
 import SchedulesUpload from '@/components/SchedulesUpload.vue'
 import SignUp from '@/components/Signup.vue'
+import Stats from '@/components/Stats.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/stats',
+      name: 'stats',
+      component: Stats,
+    },
     {
       path: '/foods',
       name: 'foods',

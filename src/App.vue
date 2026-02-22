@@ -11,7 +11,7 @@ const currentPath = computed(() => route.path);
   <div class="container">
     <Header/>
     <nav class="nav" v-if="currentPath !== '/login'">
-      <RouterLink to="/foods" active-class="active">맛집 정보 수정</RouterLink>
+      <RouterLink to="/stats" active-class="active">유저 이용 정보</RouterLink>
       <RouterLink to="/stadiums" active-class="active">경기장 정보 수정</RouterLink>
       <RouterLink to="/members" active-class="active">회원 관리</RouterLink>
       <RouterLink to="/schedules-upload" active-class="active">경기일정 관리</RouterLink>
