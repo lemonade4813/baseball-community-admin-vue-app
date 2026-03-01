@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in stadiums" :key="item.id">
+          <tr v-for="item in stadiums" :key="item.id" @click="goToDetail(item.team)" style="cursor: pointer;">
             <td>{{ item.team }}</td>
             <td>{{ item.stadiumName }}</td>
             <td>{{ item.address }}</td>
@@ -49,6 +49,7 @@
 <script setup lang="ts">
 import axiosInstance from '@/util/axiosInstance';
 import { ref, onMounted, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
     interface IStadium{
       id : string;
@@ -68,6 +69,12 @@ import { ref, onMounted, reactive } from 'vue';
 
     const stadiums : IStadium[] = reactive([]);
     const error = ref<null | string>(null);
+
+    const router = useRouter();
+
+    const goToDetail = (team : string) => {
+      router.push({ name: 'stadium-detail', params: { team } });
+    };
 
     const fetchData = async () => {
 

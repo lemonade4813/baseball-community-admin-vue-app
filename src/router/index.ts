@@ -6,8 +6,10 @@ import Login from '@/components/Login.vue'
 import SchedulesUpload from '@/components/SchedulesUpload.vue'
 import SignUp from '@/components/Signup.vue'
 import Stats from '@/components/Stats.vue'
+import StadiumsDetail from '@/components/StadiumsDetail.vue'
+
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/stats',
@@ -23,6 +25,11 @@ const router = createRouter({
       path: '/stadiums',
       name: 'stadiums',
       component: Stadiums,
+    },
+    {
+      path: '/stadiums/:team',
+      name: 'stadium-detail',
+      component: StadiumsDetail, // 이동할 상세 컴포넌트
     },
     {
       path: '/members',
@@ -46,7 +53,5 @@ const router = createRouter({
     },
   ],
 })
-
-
 
 export default router
