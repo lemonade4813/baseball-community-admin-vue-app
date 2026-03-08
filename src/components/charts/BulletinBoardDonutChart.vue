@@ -78,7 +78,7 @@ const drawChart = (data) => {
     })
     .attr("transform", d => `translate(${arc.centroid(d)})`)
     .style("text-anchor", "middle")
-    .style("font-size", "14px")
+    .style("font-size", "16px")
     .style("fill", "#000");
 };
 
@@ -86,6 +86,8 @@ const fetchData = async () => {
   try {
     const response = await axiosInstance.get('/posts/count-post-by-team');
     drawChart(response.data);
+      console.log(response.data);
+
   } catch (err) {
     error.value = "데이터를 가져오는데 실패했습니다.";
     console.error(err);

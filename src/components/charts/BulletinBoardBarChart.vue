@@ -92,7 +92,7 @@ const renderChart = (data) => {
     .style('font-size', '14px')
     .style('font-weight', 'bold')
     .style('fill', '#000')
-    .text(d => `${d.totalCount}명`)
+    .text(d => `${d.totalCount}건`)
     .transition()
     .duration(1200)
     .ease(d3.easeExpOut)

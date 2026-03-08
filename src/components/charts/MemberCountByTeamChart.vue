@@ -91,11 +91,12 @@
       .attr("transform", `translate(0,${innerHeight})`)
       .call(d3.axisBottom(x).tickFormat(d => teamNameMap[d] || d))
       .selectAll("text")
-      .style("font-size", innerWidth < 500 ? "10px" : "12px"); // 좁을 때 폰트 조절
+      .style("font-size", innerWidth < 500 ? "12px" : "14px"); // 좁을 때 폰트 조절
   
     // Y축 그리기
     svg.append("g")
-      .call(d3.axisLeft(y).ticks(5));
+      .call(d3.axisLeft(y).ticks(5))
+      .style("font-size", "14px");
   
     // 막대 그리기
     svg.selectAll(".bar")
@@ -116,7 +117,7 @@
       .attr("x", d => x(d.id) + x.bandwidth() / 2)
       .attr("y", d => (d.totalCount === 0 ? innerHeight - MIN_BAR_HEIGHT : y(d.totalCount)) - 5)
       .attr("text-anchor", "middle")
-      .style("font-size", "12px")
+      .style("font-size", "16px")
       .text(d => d.totalCount);
   };
   

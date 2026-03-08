@@ -9,36 +9,27 @@
             <th>팀명</th>
             <th>경기장명</th>
             <th>주소</th>
-            <th>수용인원</th>
-            <th>연면적</th>
-            <th>특징</th>
             <th>홈페이지</th>
-            <th>위도/경도</th>
             <th>이미지</th>
+            <th>수정하기</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in stadiums" :key="item.id" @click="goToDetail(item.team)" style="cursor: pointer;">
-            <td>{{ item.team }}</td>
+            <td>{{ item.name }}</td>
             <td>{{ item.stadiumName }}</td>
             <td>{{ item.address }}</td>
-            <td>{{ item?.seat?.toLocaleString() }}명</td>
-            <td>{{ item?.area?.toLocaleString() }}㎡</td>
-            <td class="features-cell">
-              <div v-if="item.features && item.features.length > 0">
-                <span v-for="(feature, index) in item.features" :key="index" class="feature-tag">
-                  {{ feature || "" }}
-                </span>
-              </div>
-            </td>
             <td>
               <a :href="item.homepage" target="_blank" v-if="item.homepage">방문하기</a>
             </td>
-            <td>{{ item.coordinates.join(', ') }}</td>
             <td class="img-cell">
               <img :src="`${baseUrl}${item.imagePath}`" alt="경기장 이미지" />
             </td>
+              <td>
+          <button class="edit-button">수정</button>
+          </td>
           </tr>
+        
         </tbody>
       </table>
     </div>
@@ -53,6 +44,7 @@ import { useRouter } from 'vue-router';
 
     interface IStadium{
       id : string;
+      name : string;
       team : string;
       stadiumName : string;
       address : string;
@@ -153,4 +145,19 @@ img {
 p {
   margin: 0;
 }
+
+.edit-button{
+  background-color: #EC4586;
+  border-radius: 10px;
+  height: 40px;
+  width : 100px;
+  color : #FFF;
+  transition: all 1s ease-in-out;
+}
+
+.edit-button:hover{
+  background-color: red;
+  transform: scale(1);
+}
+
 </style>

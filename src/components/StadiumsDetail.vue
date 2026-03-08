@@ -25,6 +25,10 @@
           <th>연면적</th>
           <td><input type="number" v-model="stadium.area" class="edit-input" /></td>
         </tr>
+         <tr>
+          <th>오시는길</th>
+          <td><input type="text" v-model="stadium.direction" class="edit-input" /></td>
+        </tr>
         <tr>
           <th>특징 (배열)</th>
           <td>
@@ -69,6 +73,7 @@
             </div>
           </td>
         </tr>
+        
       </tbody>
     </table>
     
@@ -84,11 +89,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import axiosInstance from '@/util/axiosInstance';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const route = useRoute();
+const router = useRouter();
 const stadium = ref(null);
 const newFeature = ref('');
 
@@ -97,6 +103,8 @@ onMounted(async () => {
     const teamName = route.params.team; 
     const response = await axiosInstance.get(`/stadium/${teamName}`);
     stadium.value = response.data;
+
+    console.log(stadium.value)
     
 
     if (!stadium.value.features) {
@@ -127,6 +135,7 @@ const submitData = async () => {
     const teamName = route.params.team;
     const response = await axiosInstance.post(`/stadium/${teamName}`, stadium.value);
     alert("성공적으로 저장되었습니다!");
+    router.push('/stadiums');
     console.log("서버 응답:", response.data);
   } catch (error) {
     console.error("저장 중 오류 발생:", error);
@@ -230,6 +239,7 @@ img {
   gap: 8px;
   margin-bottom: 10px;
 }
+
 
 .edit-input-inline {
   flex: 1;

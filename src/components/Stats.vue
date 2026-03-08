@@ -1,6 +1,6 @@
 <template>
   <MemberCountByTeamChart/>
-  <div style="display: flex; margin-top : 20px;">
+  <div class="chart-flex">
     <BulletinBoardDonutChart/>
     <BulletinBoardBarChart/>
   </div>
@@ -10,3 +10,10 @@
   import BulletinBoardDonutChart from '@/components/charts/BulletinBoardDonutChart.vue';
   import BulletinBoardBarChart from '@/components/charts/BulletinBoardBarChart.vue';
 </script>
+<style scoped>
+  .chart-flex{
+    display: flex;
+    margin-top: 80px;
+    justify-content: center;
+  }
+</style>
